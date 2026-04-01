@@ -38,10 +38,26 @@
         "shortTitle": "Add Workspace Marker"
       },
       {
+        "command": "rinemaca.toggleSessionLineMarker",
+        "title": "Toggle Session Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Toggle Session Marker"
+      },
+      {
+        "command": "rinemaca.toggleWorkspaceLineMarker",
+        "title": "Toggle Workspace Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Toggle Workspace Marker"
+      },
+      {
         "command": "rinemaca.removeLineMarker",
         "title": "Remove Marker",
         "category": "Rinemaca",
-        "shortTitle": "Remove Marker"
+        "shortTitle": "Remove Marker",
+        "icon": {
+          "light": "media/remove-marker-light.svg",
+          "dark": "media/remove-marker-dark.svg"
+        }
       },
       {
         "command": "rinemaca.clearSessionMarkers",
@@ -66,6 +82,42 @@
         "title": "Export Workspace Markers",
         "category": "Rinemaca",
         "shortTitle": "Export Workspace Markers"
+      },
+      {
+        "command": "rinemaca.nextMarker",
+        "title": "Next Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Next Marker"
+      },
+      {
+        "command": "rinemaca.previousMarker",
+        "title": "Previous Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Previous Marker"
+      },
+      {
+        "command": "rinemaca.nextSessionMarker",
+        "title": "Next Session Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Next Session Marker"
+      },
+      {
+        "command": "rinemaca.previousSessionMarker",
+        "title": "Previous Session Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Previous Session Marker"
+      },
+      {
+        "command": "rinemaca.nextWorkspaceMarker",
+        "title": "Next Workspace Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Next Workspace Marker"
+      },
+      {
+        "command": "rinemaca.previousWorkspaceMarker",
+        "title": "Previous Workspace Marker",
+        "category": "Rinemaca",
+        "shortTitle": "Previous Workspace Marker"
       }
     ],
     "submenus": [
@@ -100,16 +152,12 @@
       ],
       "rinemaca.editorMenu": [
         {
-          "command": "rinemaca.addSessionLineMarker",
-          "group": "1_mark@1"
+          "command": "rinemaca.toggleSessionLineMarker",
+          "group": "1_toggle@1"
         },
         {
-          "command": "rinemaca.addWorkspaceLineMarker",
-          "group": "1_mark@2"
-        },
-        {
-          "command": "rinemaca.removeLineMarker",
-          "group": "2_remove@1"
+          "command": "rinemaca.toggleWorkspaceLineMarker",
+          "group": "1_toggle@2"
         }
       ],
       "view/title": [

@@ -14,11 +14,19 @@ VS Code extension for whole-line marking.
 
 - `Rinemaca: Add Session Marker`
 - `Rinemaca: Add Workspace Marker`
+- `Rinemaca: Toggle Session Marker`
+- `Rinemaca: Toggle Workspace Marker`
 - `Rinemaca: Remove Marker`
 - `Rinemaca: Clear Session Markers`
 - `Rinemaca: Clear Workspace Markers`
 - `Rinemaca: Export Session Markers`
 - `Rinemaca: Export Workspace Markers`
+- `Rinemaca: Next Marker`
+- `Rinemaca: Previous Marker`
+- `Rinemaca: Next Session Marker`
+- `Rinemaca: Previous Session Marker`
+- `Rinemaca: Next Workspace Marker`
+- `Rinemaca: Previous Workspace Marker`
 
 ## Editor Context Menu
 
@@ -26,9 +34,8 @@ The editor right-click menu groups commands under a `Rinemaca` submenu.
 
 Available actions:
 
-- `Add Session Marker`
-- `Add Workspace Marker`
-- `Remove Marker`
+- `Toggle Session Marker`
+- `Toggle Workspace Marker`
 
 ## Sidebar
 
@@ -62,6 +69,8 @@ Format:
 - Session markers live only until VS Code reloads.
 - Workspace markers are stored per workspace using VS Code workspace state.
 - If you select multiple lines, each selected line is registered as a marker.
+- `Toggle Session Marker` adds or removes session markers only.
+- `Toggle Workspace Marker` adds or removes workspace markers only.
 - Removing a marker removes both the session marker and workspace marker at the same file and line, if both exist.
 
 ## Development

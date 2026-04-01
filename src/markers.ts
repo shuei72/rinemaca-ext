@@ -111,6 +111,19 @@ export function getMarkers(scope?: MarkerScope): LineMarker[] {
   return [...sessionMarkers, ...workspaceMarkers];
 }
 
+export function getSortedUniqueMarkers(scope?: MarkerScope): LineMarker[] {
+  const unique = new Map<string, LineMarker>();
+
+  for (const marker of getMarkers(scope)) {
+    const key = `${marker.uri}:${marker.line}`;
+    if (!unique.has(key)) {
+      unique.set(key, marker);
+    }
+  }
+
+  return sortMarkers([...unique.values()]);
+}
+
 export async function exportMarkersToCsv(scope: MarkerScope): Promise<boolean> {
   const markers = getMarkers(scope);
   if (markers.length === 0) {
@@ -176,6 +189,49 @@ export async function addMarkersForSelection(
 
   renderMarkersForVisibleEditors();
   return created;
+}
+
+export async function toggleMarkersForSelection(
+  context: vscode.ExtensionContext,
+  editor: vscode.TextEditor,
+  scope: MarkerScope
+): Promise<{ added: LineMarker[]; removed: number }> {
+  const targetLines = collectTargetLines(editor);
+  const targetUri = editor.document.uri.toString();
+  const store = scope === "session" ? sessionMarkers : workspaceMarkers;
+  const added: LineMarker[] = [];
+  let removed = 0;
+
+  for (const line of targetLines) {
+    const markerId = createMarkerId(targetUri, line, scope);
+    const index = store.findIndex((item) => item.id === markerId);
+
+    if (index >= 0) {
+      store.splice(index, 1);
+      removed += 1;
+      continue;
+    }
+
+    const candidate: LineMarker = {
+      id: markerId,
+      scope,
+      uri: targetUri,
+      line,
+      createdAt: Date.now()
+    };
+
+    store.push(candidate);
+    added.push(candidate);
+  }
+
+  sortMarkers(store);
+
+  if (scope === "workspace") {
+    await saveWorkspaceMarkers(context);
+  }
+
+  renderMarkersForVisibleEditors();
+  return { added, removed };
 }
 
 export async function removeMarkerById(context: vscode.ExtensionContext, id: string): Promise<boolean> {
@@ -267,6 +323,14 @@ export function getMarkerPreview(marker: LineMarker): string {
 export function getMarkerLocationLabel(marker: LineMarker): string {
   const uri = vscode.Uri.parse(marker.uri);
   return `${vscode.workspace.asRelativePath(uri, false)}:${marker.line + 1}`;
+}
+
+export function getMarkerDisplayLabel(marker: LineMarker): string {
+  return `${marker.line + 1}: ${getMarkerPreview(marker)}`;
+}
+
+export function getMarkerFileGroupLabel(marker: LineMarker): string {
+  return getCondensedRelativePath(marker);
 }
 
 function renderMarkersForEditor(editor: vscode.TextEditor): void {
@@ -399,6 +463,18 @@ function getDefaultCsvUri(scope: MarkerScope): vscode.Uri {
 function getMarkerFilePath(marker: LineMarker): string {
   const uri = vscode.Uri.parse(marker.uri);
   return uri.scheme === "file" ? uri.fsPath : uri.toString();
+}
+
+function getCondensedRelativePath(marker: LineMarker): string {
+  const uri = vscode.Uri.parse(marker.uri);
+  const relativePath = vscode.workspace.asRelativePath(uri, false);
+  const segments = relativePath.split(/[\\/]+/u).filter(Boolean);
+
+  if (segments.length <= 2) {
+    return segments.join("/");
+  }
+
+  return segments.slice(-2).join("/");
 }
 
 function normalizeMarkerLineText(value: string): string {

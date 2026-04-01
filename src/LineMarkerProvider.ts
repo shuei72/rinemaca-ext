@@ -3,6 +3,8 @@ import * as vscode from "vscode";
 import {
   MarkerScope,
   LineMarker,
+  getMarkerDisplayLabel,
+  getMarkerFileGroupLabel,
   getMarkerLocationLabel,
   getMarkerPreview,
   getMarkers
@@ -10,6 +12,7 @@ import {
 
 type TreeNode =
   | { kind: "section"; scope: MarkerScope; label: string }
+  | { kind: "file"; scope: MarkerScope; uri: string; label: string }
   | { kind: "marker"; marker: LineMarker };
 
 export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
@@ -28,9 +31,14 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
       return item;
     }
 
+    if (element.kind === "file") {
+      const item = new vscode.TreeItem(element.label, vscode.TreeItemCollapsibleState.Expanded);
+      item.resourceUri = vscode.Uri.parse(element.uri);
+      return item;
+    }
+
     const preview = getMarkerPreview(element.marker);
-    const item = new vscode.TreeItem(`Line ${element.marker.line + 1}`, vscode.TreeItemCollapsibleState.None);
-    item.description = preview;
+    const item = new vscode.TreeItem(getMarkerDisplayLabel(element.marker), vscode.TreeItemCollapsibleState.None);
     item.tooltip = new vscode.MarkdownString(
       `**${getMarkerLocationLabel(element.marker)}**\n\n${escapeMarkdown(preview)}`
     );
@@ -53,7 +61,27 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
     }
 
     if (element.kind === "section") {
-      return Promise.resolve(getMarkers(element.scope).map((marker) => ({ kind: "marker" as const, marker })));
+      const fileNodes = new Map<string, TreeNode>();
+      for (const marker of getMarkers(element.scope)) {
+        if (!fileNodes.has(marker.uri)) {
+          fileNodes.set(marker.uri, {
+            kind: "file",
+            scope: element.scope,
+            uri: marker.uri,
+            label: getMarkerFileGroupLabel(marker)
+          });
+        }
+      }
+
+      return Promise.resolve([...fileNodes.values()]);
+    }
+
+    if (element.kind === "file") {
+      return Promise.resolve(
+        getMarkers(element.scope)
+          .filter((marker) => marker.uri === element.uri)
+          .map((marker) => ({ kind: "marker" as const, marker }))
+      );
     }
 
     return Promise.resolve([]);
