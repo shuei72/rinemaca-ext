@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+﻿import * as vscode from "vscode";
 
 export type MarkerScope = "session" | "workspace";
 
@@ -10,7 +10,7 @@ export type LineMarker = {
   createdAt: number;
 };
 
-const WORKSPACE_STATE_KEY = "rinemaca.workspaceLineMarkers";
+const WORKSPACE_STATE_KEY = "rinemaka.workspaceLineMarkers";
 
 let sessionMarkers: LineMarker[] = [];
 let workspaceMarkers: LineMarker[] = [];
@@ -80,7 +80,7 @@ export function initializeMarkers(context: vscode.ExtensionContext): vscode.Disp
       renderMarkersForVisibleEditors();
     }),
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (!event.affectsConfiguration("rinemaca")) {
+      if (!event.affectsConfiguration("rinemaka")) {
         return;
       }
 
@@ -354,7 +354,7 @@ function renderMarkersForEditor(editor: vscode.TextEditor): void {
 function recreateDecorationTypes(): void {
   disposeDecorationTypes();
 
-  const configuration = vscode.workspace.getConfiguration("rinemaca");
+  const configuration = vscode.workspace.getConfiguration("rinemaka");
   sessionDecorationType = vscode.window.createTextEditorDecorationType({
     isWholeLine: true,
     backgroundColor: configuration.get<string>("sessionMarkerBackground", "rgba(255, 215, 0, 0.22)"),
@@ -488,3 +488,4 @@ function toCsvField(value: string): string {
   const escaped = value.replace(/"/g, "\"\"");
   return `"${escaped}"`;
 }
+

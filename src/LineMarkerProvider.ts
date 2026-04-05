@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+﻿import * as vscode from "vscode";
 
 import {
   MarkerScope,
@@ -27,7 +27,7 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
   getTreeItem(element: TreeNode): vscode.TreeItem {
     if (element.kind === "section") {
       const item = new vscode.TreeItem(element.label, vscode.TreeItemCollapsibleState.Expanded);
-      item.contextValue = element.scope === "session" ? "rinemacaSessionSection" : "rinemacaWorkspaceSection";
+      item.contextValue = element.scope === "session" ? "rinemakaSessionSection" : "rinemakaWorkspaceSection";
       return item;
     }
 
@@ -42,9 +42,9 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
     item.tooltip = new vscode.MarkdownString(
       `**${getMarkerLocationLabel(element.marker)}**\n\n${escapeMarkdown(preview)}`
     );
-    item.contextValue = element.marker.scope === "session" ? "rinemacaSessionMarker" : "rinemacaWorkspaceMarker";
+    item.contextValue = element.marker.scope === "session" ? "rinemakaSessionMarker" : "rinemakaWorkspaceMarker";
     item.command = {
-      command: "rinemaca.openMarker",
+      command: "rinemaka.openMarker",
       title: "Open Marker",
       arguments: [element.marker.id]
     };
@@ -91,3 +91,4 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
 function escapeMarkdown(value: string): string {
   return value.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
 }
+

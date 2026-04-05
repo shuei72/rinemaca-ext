@@ -1,54 +1,54 @@
-﻿# Rinemaca
+﻿# Rinemaka
 
-Rinemacaは、行マーカーをセッション単位またはワークスペース単位で管理できるVS Code拡張機能です。  
+Rinemakaは、行マーカーをセッション単位またはワークスペース単位で管理できるVS Code拡張機能です。  
 サイドバーでマーカーの一覧表示とCSV出力ができます。
 
 ## コマンド
 <!-- コマンド行の最後には空白を2ついれること -->
 
-`Rinemaca: Add Session Marker`  
+`Rinemaka: Add Session Marker`  
 選択行をセッションマーカーとして追加します。
 
-`Rinemaca: Add Workspace Marker`  
+`Rinemaka: Add Workspace Marker`  
 選択行をワークスペースマーカーとして追加します。
 
-`Rinemaca: Toggle Session Marker`  
+`Rinemaka: Toggle Session Marker`  
 選択行のセッションマーカーを追加または削除します。
 
-`Rinemaca: Toggle Workspace Marker`  
+`Rinemaka: Toggle Workspace Marker`  
 選択行のワークスペースマーカーを追加または削除します。
 
-`Rinemaca: Remove Marker`  
+`Rinemaka: Remove Marker`  
 選択行のマーカーを削除します。
 
-`Rinemaca: Clear Session Markers`  
+`Rinemaka: Clear Session Markers`  
 セッションマーカーをすべて削除します。
 
-`Rinemaca: Clear Workspace Markers`  
+`Rinemaka: Clear Workspace Markers`  
 ワークスペースマーカーをすべて削除します。
 
-`Rinemaca: Export Session Markers`  
+`Rinemaka: Export Session Markers`  
 セッションマーカーをCSVに出力します。
 
-`Rinemaca: Export Workspace Markers`  
+`Rinemaka: Export Workspace Markers`  
 ワークスペースマーカーをCSVに出力します。
 
-`Rinemaca: Next Marker`  
+`Rinemaka: Next Marker`  
 セッションマーカーとワークスペースマーカーの両方を対象に、次のマーカーへ移動します。
 
-`Rinemaca: Previous Marker`  
+`Rinemaka: Previous Marker`  
 セッションマーカーとワークスペースマーカーの両方を対象に、前のマーカーへ移動します。
 
-`Rinemaca: Next Session Marker`  
+`Rinemaka: Next Session Marker`  
 次のセッションマーカーへ移動します。
 
-`Rinemaca: Previous Session Marker`  
+`Rinemaka: Previous Session Marker`  
 前のセッションマーカーへ移動します。
 
-`Rinemaca: Next Workspace Marker`  
+`Rinemaka: Next Workspace Marker`  
 次のワークスペースマーカーへ移動します。
 
-`Rinemaca: Previous Workspace Marker`  
+`Rinemaka: Previous Workspace Marker`  
 前のワークスペースマーカーへ移動します。
 
 ## 特徴
@@ -68,41 +68,41 @@ Rinemacaは、行マーカーをセッション単位またはワークスペー
 
 ## サイドバー
 
-- サイドバーに`Rinemaca`を追加します。
+- サイドバーに`Rinemaka`を追加します。
 - サイドバーには`Session Markers`と`Workspace Markers`の2つに分けてマーカー一覧を表示します。
 
 ## 設定
 
 マーカーの色を`rgba(R, G, B, A)`形式で指定します。オーバービューに設定した色はスクロールバーに反映されます。
 
-`rinemaca.sessionMarkerBackground`  
+`rinemaka.sessionMarkerBackground`  
 セッションマーカーの背景色  
 
-`rinemaca.sessionMarkerBorder`  
+`rinemaka.sessionMarkerBorder`  
 セッションマーカーの枠線色
 
-`rinemaca.sessionMarkerOverviewRuler`  
+`rinemaka.sessionMarkerOverviewRuler`  
 セッションマーカーのオーバービュー色
 
-`rinemaca.workspaceMarkerBackground`  
+`rinemaka.workspaceMarkerBackground`  
 ワークスペースマーカーの背景色
 
-`rinemaca.workspaceMarkerBorder`  
+`rinemaka.workspaceMarkerBorder`  
 ワークスペースマーカーの枠線色
 
-`rinemaca.workspaceMarkerOverviewRuler`  
+`rinemaka.workspaceMarkerOverviewRuler`  
 ワークスペースマーカーのオーバービュー色
 
 ## デフォルト値
 
 ```json
 {
-  "rinemaca.sessionMarkerBackground": "rgba(255, 215, 0, 0.22)",
-  "rinemaca.sessionMarkerBorder": "rgba(255, 215, 0, 0.85)",
-  "rinemaca.sessionMarkerOverviewRuler": "rgba(255, 215, 0, 0.9)",
-  "rinemaca.workspaceMarkerBackground": "rgba(64, 156, 255, 0.18)",
-  "rinemaca.workspaceMarkerBorder": "rgba(64, 156, 255, 0.85)",
-  "rinemaca.workspaceMarkerOverviewRuler": "rgba(64, 156, 255, 0.9)"
+  "rinemaka.sessionMarkerBackground": "rgba(255, 215, 0, 0.22)",
+  "rinemaka.sessionMarkerBorder": "rgba(255, 215, 0, 0.85)",
+  "rinemaka.sessionMarkerOverviewRuler": "rgba(255, 215, 0, 0.9)",
+  "rinemaka.workspaceMarkerBackground": "rgba(64, 156, 255, 0.18)",
+  "rinemaka.workspaceMarkerBorder": "rgba(64, 156, 255, 0.85)",
+  "rinemaka.workspaceMarkerOverviewRuler": "rgba(64, 156, 255, 0.9)"
 }
 ```
 
@@ -131,3 +131,4 @@ npm run package
 ## ライセンス
 
 MIT License
+

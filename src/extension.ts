@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+﻿import * as vscode from "vscode";
 
 import { LineMarkerProvider } from "./LineMarkerProvider";
 import {
@@ -16,23 +16,23 @@ import {
   toggleMarkersForSelection
 } from "./markers";
 
-const ADD_SESSION_COMMAND = "rinemaca.addSessionMarker";
-const ADD_WORKSPACE_COMMAND = "rinemaca.addWorkspaceMarker";
-const TOGGLE_SESSION_COMMAND = "rinemaca.toggleSessionMarker";
-const TOGGLE_WORKSPACE_COMMAND = "rinemaca.toggleWorkspaceMarker";
-const REMOVE_COMMAND = "rinemaca.removeMarker";
-const OPEN_COMMAND = "rinemaca.openMarker";
-const CLEAR_SESSION_COMMAND = "rinemaca.clearSessionMarkers";
-const CLEAR_WORKSPACE_COMMAND = "rinemaca.clearWorkspaceMarkers";
-const EXPORT_SESSION_CSV_COMMAND = "rinemaca.exportSessionCsv";
-const EXPORT_WORKSPACE_CSV_COMMAND = "rinemaca.exportWorkspaceCsv";
-const NEXT_MARKER_COMMAND = "rinemaca.nextMarker";
-const PREV_MARKER_COMMAND = "rinemaca.prevMarker";
-const NEXT_SESSION_MARKER_COMMAND = "rinemaca.nextSessionMarker";
-const PREV_SESSION_MARKER_COMMAND = "rinemaca.prevSessionMarker";
-const NEXT_WORKSPACE_MARKER_COMMAND = "rinemaca.nextWorkspaceMarker";
-const PREV_WORKSPACE_MARKER_COMMAND = "rinemaca.prevWorkspaceMarker";
-const VIEW_ID = "rinemacaMarkersView";
+const ADD_SESSION_COMMAND = "rinemaka.addSessionMarker";
+const ADD_WORKSPACE_COMMAND = "rinemaka.addWorkspaceMarker";
+const TOGGLE_SESSION_COMMAND = "rinemaka.toggleSessionMarker";
+const TOGGLE_WORKSPACE_COMMAND = "rinemaka.toggleWorkspaceMarker";
+const REMOVE_COMMAND = "rinemaka.removeMarker";
+const OPEN_COMMAND = "rinemaka.openMarker";
+const CLEAR_SESSION_COMMAND = "rinemaka.clearSessionMarkers";
+const CLEAR_WORKSPACE_COMMAND = "rinemaka.clearWorkspaceMarkers";
+const EXPORT_SESSION_CSV_COMMAND = "rinemaka.exportSessionCsv";
+const EXPORT_WORKSPACE_CSV_COMMAND = "rinemaka.exportWorkspaceCsv";
+const NEXT_MARKER_COMMAND = "rinemaka.nextMarker";
+const PREV_MARKER_COMMAND = "rinemaka.prevMarker";
+const NEXT_SESSION_MARKER_COMMAND = "rinemaka.nextSessionMarker";
+const PREV_SESSION_MARKER_COMMAND = "rinemaka.prevSessionMarker";
+const NEXT_WORKSPACE_MARKER_COMMAND = "rinemaka.nextWorkspaceMarker";
+const PREV_WORKSPACE_MARKER_COMMAND = "rinemaka.prevWorkspaceMarker";
+const VIEW_ID = "rinemakaMarkersView";
 
 export function activate(context: vscode.ExtensionContext): void {
   const provider = new LineMarkerProvider();
@@ -272,3 +272,4 @@ function getNearestMarkerIndex(
 
   return markers.length - 1;
 }
+

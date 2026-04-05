@@ -1,6 +1,6 @@
-{
-  "name": "rumo-rinemaca",
-  "displayName": "Rinemaca",
+﻿{
+  "name": "rinemaka",
+  "displayName": "Rinemaka",
   "description": "Whole-line bookmarks for VS Code with session markers, workspace markers, sidebar navigation, and CSV export.",
   "version": "0.0.1",
   "publisher": "shuei",
@@ -8,11 +8,11 @@
   "icon": "media/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shuei72/rinemaca-ext.git"
+    "url": "https://github.com/shuei72/rinemaka-ext.git"
   },
-  "homepage": "https://github.com/shuei72/rinemaca-ext#readme",
+  "homepage": "https://github.com/shuei72/rinemaka-ext#readme",
   "bugs": {
-    "url": "https://github.com/shuei72/rinemaca-ext/issues"
+    "url": "https://github.com/shuei72/rinemaka-ext/issues"
   },
   "engines": {
     "vscode": "^1.74.0"
@@ -46,33 +46,33 @@
   "contributes": {
     "commands": [
       {
-        "command": "rinemaca.addSessionMarker",
+        "command": "rinemaka.addSessionMarker",
         "title": "Add Session Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Add Session Marker"
       },
       {
-        "command": "rinemaca.addWorkspaceMarker",
+        "command": "rinemaka.addWorkspaceMarker",
         "title": "Add Workspace Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Add Workspace Marker"
       },
       {
-        "command": "rinemaca.toggleSessionMarker",
+        "command": "rinemaka.toggleSessionMarker",
         "title": "Toggle Session Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Toggle Session Marker"
       },
       {
-        "command": "rinemaca.toggleWorkspaceMarker",
+        "command": "rinemaka.toggleWorkspaceMarker",
         "title": "Toggle Workspace Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Toggle Workspace Marker"
       },
       {
-        "command": "rinemaca.removeMarker",
+        "command": "rinemaka.removeMarker",
         "title": "Remove Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Remove Marker",
         "icon": {
           "light": "media/remove-marker-light.svg",
@@ -80,85 +80,85 @@
         }
       },
       {
-        "command": "rinemaca.clearSessionMarkers",
+        "command": "rinemaka.clearSessionMarkers",
         "title": "Clear Session Markers",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Clear Session Markers"
       },
       {
-        "command": "rinemaca.clearWorkspaceMarkers",
+        "command": "rinemaka.clearWorkspaceMarkers",
         "title": "Clear Workspace Markers",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Clear Workspace Markers"
       },
       {
-        "command": "rinemaca.exportSessionCsv",
+        "command": "rinemaka.exportSessionCsv",
         "title": "Export Session Markers",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Export Session Markers"
       },
       {
-        "command": "rinemaca.exportWorkspaceCsv",
+        "command": "rinemaka.exportWorkspaceCsv",
         "title": "Export Workspace Markers",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Export Workspace Markers"
       },
       {
-        "command": "rinemaca.nextMarker",
+        "command": "rinemaka.nextMarker",
         "title": "Next Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Next Marker"
       },
       {
-        "command": "rinemaca.prevMarker",
+        "command": "rinemaka.prevMarker",
         "title": "Previous Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Previous Marker"
       },
       {
-        "command": "rinemaca.nextSessionMarker",
+        "command": "rinemaka.nextSessionMarker",
         "title": "Next Session Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Next Session Marker"
       },
       {
-        "command": "rinemaca.prevSessionMarker",
+        "command": "rinemaka.prevSessionMarker",
         "title": "Previous Session Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Previous Session Marker"
       },
       {
-        "command": "rinemaca.nextWorkspaceMarker",
+        "command": "rinemaka.nextWorkspaceMarker",
         "title": "Next Workspace Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Next Workspace Marker"
       },
       {
-        "command": "rinemaca.prevWorkspaceMarker",
+        "command": "rinemaka.prevWorkspaceMarker",
         "title": "Previous Workspace Marker",
-        "category": "Rinemaca",
+        "category": "Rinemaka",
         "shortTitle": "Previous Workspace Marker"
       }
     ],
     "submenus": [
       {
-        "id": "rinemaca.editorMenu",
-        "label": "Rinemaca"
+        "id": "rinemaka.editorMenu",
+        "label": "Rinemaka"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "rinemacaSidebar",
-          "title": "Rinemaca",
-          "icon": "media/rinemaca-panel.svg"
+          "id": "rinemakaSidebar",
+          "title": "Rinemaka",
+          "icon": "media/rinemaka-panel.svg"
         }
       ]
     },
     "views": {
-      "rinemacaSidebar": [
+      "rinemakaSidebar": [
         {
-          "id": "rinemacaMarkersView",
+          "id": "rinemakaMarkersView",
           "name": "Markers"
         }
       ]
@@ -166,94 +166,94 @@
     "menus": {
       "editor/context": [
         {
-          "submenu": "rinemaca.editorMenu",
+          "submenu": "rinemaka.editorMenu",
           "group": "navigation@100"
         }
       ],
-      "rinemaca.editorMenu": [
+      "rinemaka.editorMenu": [
         {
-          "command": "rinemaca.toggleSessionMarker",
+          "command": "rinemaka.toggleSessionMarker",
           "group": "1_toggle@1"
         },
         {
-          "command": "rinemaca.toggleWorkspaceMarker",
+          "command": "rinemaka.toggleWorkspaceMarker",
           "group": "1_toggle@2"
         }
       ],
       "view/title": [
         {
-          "command": "rinemaca.clearSessionMarkers",
-          "when": "view == rinemacaMarkersView",
+          "command": "rinemaka.clearSessionMarkers",
+          "when": "view == rinemakaMarkersView",
           "group": "clear@1"
         },
         {
-          "command": "rinemaca.clearWorkspaceMarkers",
-          "when": "view == rinemacaMarkersView",
+          "command": "rinemaka.clearWorkspaceMarkers",
+          "when": "view == rinemakaMarkersView",
           "group": "clear@2"
         },
         {
-          "command": "rinemaca.exportSessionCsv",
-          "when": "view == rinemacaMarkersView",
+          "command": "rinemaka.exportSessionCsv",
+          "when": "view == rinemakaMarkersView",
           "group": "export@1"
         },
         {
-          "command": "rinemaca.exportWorkspaceCsv",
-          "when": "view == rinemacaMarkersView",
+          "command": "rinemaka.exportWorkspaceCsv",
+          "when": "view == rinemakaMarkersView",
           "group": "export@2"
         }
       ],
       "view/item/context": [
         {
-          "command": "rinemaca.removeMarker",
-          "when": "view == rinemacaMarkersView && viewItem == rinemacaSessionMarker",
+          "command": "rinemaka.removeMarker",
+          "when": "view == rinemakaMarkersView && viewItem == rinemakaSessionMarker",
           "group": "inline"
         },
         {
-          "command": "rinemaca.removeMarker",
-          "when": "view == rinemacaMarkersView && viewItem == rinemacaWorkspaceMarker",
+          "command": "rinemaka.removeMarker",
+          "when": "view == rinemakaMarkersView && viewItem == rinemakaWorkspaceMarker",
           "group": "inline"
         },
         {
-          "command": "rinemaca.removeMarker",
-          "when": "view == rinemacaMarkersView && viewItem == rinemacaSessionMarker",
+          "command": "rinemaka.removeMarker",
+          "when": "view == rinemakaMarkersView && viewItem == rinemakaSessionMarker",
           "group": "navigation"
         },
         {
-          "command": "rinemaca.removeMarker",
-          "when": "view == rinemacaMarkersView && viewItem == rinemacaWorkspaceMarker",
+          "command": "rinemaka.removeMarker",
+          "when": "view == rinemakaMarkersView && viewItem == rinemakaWorkspaceMarker",
           "group": "navigation"
         }
       ]
     },
     "configuration": {
-      "title": "Rinemaca",
+      "title": "Rinemaka",
       "properties": {
-        "rinemaca.sessionMarkerBackground": {
+        "rinemaka.sessionMarkerBackground": {
           "type": "string",
           "default": "rgba(255, 215, 0, 0.22)",
           "description": "Background color used for session-only line markers."
         },
-        "rinemaca.sessionMarkerBorder": {
+        "rinemaka.sessionMarkerBorder": {
           "type": "string",
           "default": "rgba(255, 215, 0, 0.85)",
           "description": "Border color used for session-only line markers."
         },
-        "rinemaca.sessionMarkerOverviewRuler": {
+        "rinemaka.sessionMarkerOverviewRuler": {
           "type": "string",
           "default": "rgba(255, 215, 0, 0.9)",
           "description": "Overview ruler color used for session-only line markers."
         },
-        "rinemaca.workspaceMarkerBackground": {
+        "rinemaka.workspaceMarkerBackground": {
           "type": "string",
           "default": "rgba(64, 156, 255, 0.18)",
           "description": "Background color used for workspace-persisted line markers."
         },
-        "rinemaca.workspaceMarkerBorder": {
+        "rinemaka.workspaceMarkerBorder": {
           "type": "string",
           "default": "rgba(64, 156, 255, 0.85)",
           "description": "Border color used for workspace-persisted line markers."
         },
-        "rinemaca.workspaceMarkerOverviewRuler": {
+        "rinemaka.workspaceMarkerOverviewRuler": {
           "type": "string",
           "default": "rgba(64, 156, 255, 0.9)",
           "description": "Overview ruler color used for workspace-persisted line markers."
@@ -273,3 +273,4 @@
     "typescript": "^5.4.5"
   }
 }
+

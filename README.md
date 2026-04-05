@@ -1,53 +1,53 @@
-﻿# Rinemaca
+﻿# Rinemaka
 
-Rinemaca is a VS Code extension for managing line markers in either session scope or workspace scope.  
+Rinemaka is a VS Code extension for managing line markers in either session scope or workspace scope.  
 The sidebar shows marker lists and supports CSV export.
 
 ## Commands
 
-`Rinemaca: Add Session Marker`  
+`Rinemaka: Add Session Marker`  
 Adds the selected line as a session marker.
 
-`Rinemaca: Add Workspace Marker`  
+`Rinemaka: Add Workspace Marker`  
 Adds the selected line as a workspace marker.
 
-`Rinemaca: Toggle Session Marker`  
+`Rinemaka: Toggle Session Marker`  
 Adds or removes a session marker on the selected line.
 
-`Rinemaca: Toggle Workspace Marker`  
+`Rinemaka: Toggle Workspace Marker`  
 Adds or removes a workspace marker on the selected line.
 
-`Rinemaca: Remove Marker`  
+`Rinemaka: Remove Marker`  
 Removes the marker on the selected line.
 
-`Rinemaca: Clear Session Markers`  
+`Rinemaka: Clear Session Markers`  
 Removes all session markers.
 
-`Rinemaca: Clear Workspace Markers`  
+`Rinemaka: Clear Workspace Markers`  
 Removes all workspace markers.
 
-`Rinemaca: Export Session Markers`  
+`Rinemaka: Export Session Markers`  
 Exports session markers to CSV.
 
-`Rinemaca: Export Workspace Markers`  
+`Rinemaka: Export Workspace Markers`  
 Exports workspace markers to CSV.
 
-`Rinemaca: Next Marker`  
+`Rinemaka: Next Marker`  
 Moves to the next marker across both session and workspace markers.
 
-`Rinemaca: Previous Marker`  
+`Rinemaka: Previous Marker`  
 Moves to the previous marker across both session and workspace markers.
 
-`Rinemaca: Next Session Marker`  
+`Rinemaka: Next Session Marker`  
 Moves to the next session marker.
 
-`Rinemaca: Previous Session Marker`  
+`Rinemaka: Previous Session Marker`  
 Moves to the previous session marker.
 
-`Rinemaca: Next Workspace Marker`  
+`Rinemaka: Next Workspace Marker`  
 Moves to the next workspace marker.
 
-`Rinemaca: Previous Workspace Marker`  
+`Rinemaka: Previous Workspace Marker`  
 Moves to the previous workspace marker.
 
 ## Features
@@ -67,41 +67,41 @@ Moves to the previous workspace marker.
 
 ## Sidebar
 
-- Adds `Rinemaca` to the sidebar.
+- Adds `Rinemaka` to the sidebar.
 - Shows markers in separate `Session Markers` and `Workspace Markers` groups.
 
 ## Settings
 
 Marker colors use `rgba(R, G, B, A)` format. Overview ruler colors are reflected on the scrollbar.
 
-`rinemaca.sessionMarkerBackground`  
+`rinemaka.sessionMarkerBackground`  
 Background color for session markers.
 
-`rinemaca.sessionMarkerBorder`  
+`rinemaka.sessionMarkerBorder`  
 Border color for session markers.
 
-`rinemaca.sessionMarkerOverviewRuler`  
+`rinemaka.sessionMarkerOverviewRuler`  
 Overview ruler color for session markers.
 
-`rinemaca.workspaceMarkerBackground`  
+`rinemaka.workspaceMarkerBackground`  
 Background color for workspace markers.
 
-`rinemaca.workspaceMarkerBorder`  
+`rinemaka.workspaceMarkerBorder`  
 Border color for workspace markers.
 
-`rinemaca.workspaceMarkerOverviewRuler`  
+`rinemaka.workspaceMarkerOverviewRuler`  
 Overview ruler color for workspace markers.
 
 ## Defaults
 
 ```json
 {
-  "rinemaca.sessionMarkerBackground": "rgba(255, 215, 0, 0.22)",
-  "rinemaca.sessionMarkerBorder": "rgba(255, 215, 0, 0.85)",
-  "rinemaca.sessionMarkerOverviewRuler": "rgba(255, 215, 0, 0.9)",
-  "rinemaca.workspaceMarkerBackground": "rgba(64, 156, 255, 0.18)",
-  "rinemaca.workspaceMarkerBorder": "rgba(64, 156, 255, 0.85)",
-  "rinemaca.workspaceMarkerOverviewRuler": "rgba(64, 156, 255, 0.9)"
+  "rinemaka.sessionMarkerBackground": "rgba(255, 215, 0, 0.22)",
+  "rinemaka.sessionMarkerBorder": "rgba(255, 215, 0, 0.85)",
+  "rinemaka.sessionMarkerOverviewRuler": "rgba(255, 215, 0, 0.9)",
+  "rinemaka.workspaceMarkerBackground": "rgba(64, 156, 255, 0.18)",
+  "rinemaka.workspaceMarkerBorder": "rgba(64, 156, 255, 0.85)",
+  "rinemaka.workspaceMarkerOverviewRuler": "rgba(64, 156, 255, 0.9)"
 }
 ```
 
@@ -130,3 +130,4 @@ npm run package
 ## License
 
 MIT License
+
