@@ -1,4 +1,4 @@
-﻿import * as vscode from "vscode";
+import * as vscode from "vscode";
 
 export type MarkerScope = "session" | "workspace";
 
@@ -18,6 +18,7 @@ let sessionDecorationType: vscode.TextEditorDecorationType | undefined;
 let workspaceDecorationType: vscode.TextEditorDecorationType | undefined;
 
 export function initializeMarkers(context: vscode.ExtensionContext): vscode.Disposable[] {
+  // Load persisted workspace markers once, then paint markers for anything already open.
   workspaceMarkers = normalizeMarkers(
     context.workspaceState.get<LineMarker[]>(WORKSPACE_STATE_KEY, []).map((entry) => ({
       ...entry,
@@ -40,6 +41,7 @@ export function initializeMarkers(context: vscode.ExtensionContext): vscode.Disp
       renderMarkersForVisibleEditors();
     }),
     vscode.workspace.onDidRenameFiles(async (event) => {
+      // Keep stored marker URIs in sync when files are renamed.
       const renameMap = new Map(event.files.map((item) => [item.oldUri.toString(), item.newUri.toString()]));
       let changed = false;
 
@@ -66,6 +68,7 @@ export function initializeMarkers(context: vscode.ExtensionContext): vscode.Disp
       }
     }),
     vscode.workspace.onDidDeleteFiles(async (event) => {
+      // Drop markers that point at files that no longer exist.
       const deleted = new Set(event.files.map((item) => item.toString()));
       const nextSession = sessionMarkers.filter((item) => !deleted.has(item.uri));
       const nextWorkspace = workspaceMarkers.filter((item) => !deleted.has(item.uri));
@@ -125,6 +128,7 @@ export function getSortedUniqueMarkers(scope?: MarkerScope): LineMarker[] {
 }
 
 export async function exportMarkersToCsv(scope: MarkerScope): Promise<boolean> {
+  // Export the current marker set as a simple CSV file for external tools.
   const markers = getMarkers(scope);
   if (markers.length === 0) {
     vscode.window.showInformationMessage(`There are no ${scope} markers to export.`);
@@ -159,6 +163,7 @@ export async function addMarkersForSelection(
   editor: vscode.TextEditor,
   scope: MarkerScope
 ): Promise<LineMarker[]> {
+  // Turn the current selection into one marker per line, skipping duplicates.
   const targetLines = collectTargetLines(editor);
   const targetUri = editor.document.uri.toString();
   const store = scope === "session" ? sessionMarkers : workspaceMarkers;
@@ -196,6 +201,7 @@ export async function toggleMarkersForSelection(
   editor: vscode.TextEditor,
   scope: MarkerScope
 ): Promise<{ added: LineMarker[]; removed: number }> {
+  // Toggle each selected line independently so mixed add/remove selections work naturally.
   const targetLines = collectTargetLines(editor);
   const targetUri = editor.document.uri.toString();
   const store = scope === "session" ? sessionMarkers : workspaceMarkers;
@@ -235,6 +241,7 @@ export async function toggleMarkersForSelection(
 }
 
 export async function removeMarkerById(context: vscode.ExtensionContext, id: string): Promise<boolean> {
+  // Try session markers first, then workspace markers.
   const nextSession = sessionMarkers.filter((item) => item.id !== id);
   if (nextSession.length !== sessionMarkers.length) {
     sessionMarkers = nextSession;
@@ -258,6 +265,7 @@ export async function removeMarkersAtLocation(
   uri: string,
   line: number
 ): Promise<boolean> {
+  // Remove any marker that points at the requested file line.
   const nextSession = sessionMarkers.filter((item) => !(item.uri === uri && item.line === line));
   const nextWorkspace = workspaceMarkers.filter((item) => !(item.uri === uri && item.line === line));
   const changed =
@@ -276,6 +284,7 @@ export async function removeMarkersAtLocation(
 }
 
 export async function clearMarkers(context: vscode.ExtensionContext, scope: MarkerScope): Promise<void> {
+  // Clear only the requested marker scope so session and workspace state stay independent.
   if (scope === "session") {
     sessionMarkers = [];
     renderMarkersForVisibleEditors();
@@ -292,6 +301,7 @@ export function findMarkerById(id: string): LineMarker | undefined {
 }
 
 export async function revealMarker(marker: LineMarker): Promise<void> {
+  // Open the target file, move the cursor to the marker, and center it in view.
   const uri = vscode.Uri.parse(marker.uri);
   const document = await vscode.workspace.openTextDocument(uri);
   const editor = await vscode.window.showTextDocument(document, { preview: false });
@@ -302,6 +312,7 @@ export async function revealMarker(marker: LineMarker): Promise<void> {
 }
 
 export function renderMarkersForVisibleEditors(): void {
+  // Refresh every visible editor whenever marker data changes.
   for (const editor of vscode.window.visibleTextEditors) {
     renderMarkersForEditor(editor);
   }
@@ -334,6 +345,7 @@ export function getMarkerFileGroupLabel(marker: LineMarker): string {
 }
 
 function renderMarkersForEditor(editor: vscode.TextEditor): void {
+  // Apply line decorations only to markers that belong to the current document.
   const uri = editor.document.uri.toString();
   const sessionRanges = sessionMarkers
     .filter((item) => item.uri === uri && item.line < editor.document.lineCount)
@@ -352,6 +364,7 @@ function renderMarkersForEditor(editor: vscode.TextEditor): void {
 }
 
 function recreateDecorationTypes(): void {
+  // Recreate decorations when settings or theme changes so colors stay in sync.
   disposeDecorationTypes();
 
   const configuration = vscode.workspace.getConfiguration("rinemaka");
@@ -381,6 +394,7 @@ function disposeDecorationTypes(): void {
 }
 
 function collectTargetLines(editor: vscode.TextEditor): number[] {
+  // Expand selections to full covered lines before creating markers.
   const lines = new Set<number>();
 
   for (const selection of editor.selections) {
@@ -396,6 +410,7 @@ function collectTargetLines(editor: vscode.TextEditor): number[] {
 }
 
 function normalizeMarkers(items: LineMarker[]): LineMarker[] {
+  // Filter out malformed data and dedupe on the generated marker id.
   const unique = new Map<string, LineMarker>();
 
   for (const item of items) {
@@ -418,6 +433,7 @@ function normalizeMarkers(items: LineMarker[]): LineMarker[] {
 }
 
 function sortMarkers<T extends LineMarker[]>(items: T): T {
+  // Keep markers ordered by file path and then by line number.
   items.sort((left, right) => {
     if (left.uri !== right.uri) {
       return left.uri.localeCompare(right.uri);
@@ -434,6 +450,7 @@ function createMarkerId(uri: string, line: number, scope: MarkerScope): string {
 }
 
 async function saveWorkspaceMarkers(context: vscode.ExtensionContext): Promise<void> {
+  // Persist workspace markers only; session markers stay in memory.
   await context.workspaceState.update(WORKSPACE_STATE_KEY, workspaceMarkers.map((item) => ({
     id: item.id,
     scope: "workspace" as const,
@@ -444,6 +461,7 @@ async function saveWorkspaceMarkers(context: vscode.ExtensionContext): Promise<v
 }
 
 async function buildCsvRow(marker: LineMarker): Promise<string> {
+  // Read the file line so the export includes the actual marker text.
   const document = await vscode.workspace.openTextDocument(vscode.Uri.parse(marker.uri));
   const lineNumber = Math.min(marker.line, Math.max(document.lineCount - 1, 0));
   const filePath = toCsvField(getMarkerFilePath(marker));
@@ -469,6 +487,7 @@ function getMarkerFilePath(marker: LineMarker): string {
 }
 
 function getCondensedRelativePath(marker: LineMarker): string {
+  // Shorten long paths so the tree view stays readable.
   const uri = vscode.Uri.parse(marker.uri);
   const relativePath = vscode.workspace.asRelativePath(uri, false);
   const segments = relativePath.split(/[\\/]+/u).filter(Boolean);
@@ -485,7 +504,6 @@ function normalizeMarkerLineText(value: string): string {
 }
 
 function toCsvField(value: string): string {
-  const escaped = value.replace(/"/g, "\"\"");
+  const escaped = value.replace(/"/g, """");
   return `"${escaped}"`;
 }
-

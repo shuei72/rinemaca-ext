@@ -6,6 +6,10 @@
   "publisher": "shuei",
   "license": "MIT",
   "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#20242c",
+    "theme": "dark"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/shuei72/rinemaka-ext.git"
@@ -31,7 +35,9 @@
     "line highlight",
     "navigation",
     "sidebar",
-    "csv"
+    "csv",
+    "session",
+    "workspace"
   ],
   "capabilities": {
     "untrustedWorkspaces": {
@@ -153,7 +159,7 @@
         {
           "id": "rinemakaSidebar",
           "title": "Rinemaka",
-            "icon": "media/panel-icon.svg"
+          "icon": "media/panel-icon.svg"
         }
       ]
     },
@@ -275,4 +281,3 @@
     "typescript": "^5.4.5"
   }
 }
-

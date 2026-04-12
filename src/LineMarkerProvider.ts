@@ -1,4 +1,4 @@
-﻿import * as vscode from "vscode";
+import * as vscode from "vscode";
 
 import {
   MarkerScope,
@@ -21,10 +21,12 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
   readonly onDidChangeTreeData = this.onDidChangeTreeDataEmitter.event;
 
   refresh(): void {
+    // Rebuild the tree whenever marker state changes.
     this.onDidChangeTreeDataEmitter.fire();
   }
 
   getTreeItem(element: TreeNode): vscode.TreeItem {
+    // Sections, files, and markers each get a different tree presentation.
     if (element.kind === "section") {
       const item = new vscode.TreeItem(element.label, vscode.TreeItemCollapsibleState.Expanded);
       item.contextValue = element.scope === "session" ? "rinemakaSessionSection" : "rinemakaWorkspaceSection";
@@ -53,6 +55,7 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
   }
 
   getChildren(element?: TreeNode): Thenable<TreeNode[]> {
+    // The tree is grouped as section -> file -> marker.
     if (!element) {
       return Promise.resolve([
         { kind: "section", scope: "session", label: "Session Markers" },
@@ -89,6 +92,6 @@ export class LineMarkerProvider implements vscode.TreeDataProvider<TreeNode> {
 }
 
 function escapeMarkdown(value: string): string {
+  // Markdown tooltips need escaping so marker previews stay readable.
   return value.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
 }
-

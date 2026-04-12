@@ -1,4 +1,4 @@
-﻿import * as vscode from "vscode";
+import * as vscode from "vscode";
 
 import { LineMarkerProvider } from "./LineMarkerProvider";
 import {
@@ -35,6 +35,7 @@ const PREV_WORKSPACE_MARKER_COMMAND = "rinemaka.prevWorkspaceMarker";
 const VIEW_ID = "rinemakaMarkersView";
 
 export function activate(context: vscode.ExtensionContext): void {
+  // Register the tree view, commands, and marker listeners together at startup.
   const provider = new LineMarkerProvider();
   const refresh = (): void => {
     renderMarkersForVisibleEditors();
@@ -45,6 +46,7 @@ export function activate(context: vscode.ExtensionContext): void {
     ...initializeMarkers(context),
     vscode.window.registerTreeDataProvider(VIEW_ID, provider),
     vscode.commands.registerCommand(ADD_SESSION_COMMAND, async () => {
+      // Session markers live only for the current VS Code session.
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
         return;
@@ -57,6 +59,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
     vscode.commands.registerCommand(ADD_WORKSPACE_COMMAND, async () => {
+      // Workspace markers are persisted to workspace state.
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
         return;
@@ -69,6 +72,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
     vscode.commands.registerCommand(TOGGLE_SESSION_COMMAND, async () => {
+      // Toggle lets the same command both add and remove markers.
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
         return;
@@ -81,6 +85,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
     vscode.commands.registerCommand(TOGGLE_WORKSPACE_COMMAND, async () => {
+      // Workspace toggle mirrors the session toggle, but persists changes.
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
         return;
@@ -93,6 +98,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
     vscode.commands.registerCommand(REMOVE_COMMAND, async (target?: unknown) => {
+      // Resolve the marker from the tree item or fall back to the active line.
       const resolvedMarker = resolveMarker(target) ?? getActiveLineMarker();
       if (!resolvedMarker) {
         void vscode.window.showInformationMessage("No marked line was found.");
@@ -106,6 +112,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
     vscode.commands.registerCommand(OPEN_COMMAND, async (target?: unknown) => {
+      // Open the selected marker in the editor and reveal its line.
       const resolvedMarker = resolveMarker(target);
       if (!resolvedMarker) {
         return;
@@ -114,23 +121,29 @@ export function activate(context: vscode.ExtensionContext): void {
       await revealMarker(resolvedMarker);
     }),
     vscode.commands.registerCommand(CLEAR_SESSION_COMMAND, async () => {
+      // Keep the refresh path identical after every mutation.
       await clearMarkers(context, "session");
       refresh();
     }),
     vscode.commands.registerCommand(CLEAR_WORKSPACE_COMMAND, async () => {
+      // Workspace markers are stored separately from session markers.
       await clearMarkers(context, "workspace");
       refresh();
     }),
     vscode.commands.registerCommand(EXPORT_SESSION_CSV_COMMAND, async () => {
+      // Export session markers without touching workspace state.
       await exportMarkersToCsv("session");
     }),
     vscode.commands.registerCommand(EXPORT_WORKSPACE_CSV_COMMAND, async () => {
+      // Export workspace markers as a separate CSV set.
       await exportMarkersToCsv("workspace");
     }),
     vscode.commands.registerCommand(NEXT_MARKER_COMMAND, async () => {
+      // Move through markers across all scopes in file order.
       await revealRelativeMarker(1);
     }),
     vscode.commands.registerCommand(PREV_MARKER_COMMAND, async () => {
+      // Reverse direction uses the same navigation logic.
       await revealRelativeMarker(-1);
     }),
     vscode.commands.registerCommand(NEXT_SESSION_MARKER_COMMAND, async () => {
@@ -166,6 +179,7 @@ export function deactivate(): void {
  * Returns the marker that exists on the active editor line, if any.
  */
 function getActiveLineMarker() {
+  // Look up the marker directly under the cursor, if one exists.
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
     return undefined;
@@ -180,6 +194,7 @@ function getActiveLineMarker() {
  * Extracts a marker id from tree view items or direct string arguments.
  */
 function resolveMarkerId(target: unknown): string | undefined {
+  // Tree view items can hand us either a raw string id or an object wrapper.
   if (typeof target === "string") {
     return target;
   }
@@ -205,6 +220,7 @@ function resolveMarkerId(target: unknown): string | undefined {
  * Resolves a command target into a concrete marker record.
  */
 function resolveMarker(target: unknown) {
+  // Convert arbitrary command payloads back into the concrete marker record.
   const markerId = resolveMarkerId(target);
   if (!markerId) {
     return undefined;
@@ -217,6 +233,7 @@ function resolveMarker(target: unknown) {
  * Navigates to the next or previous marker, wrapping across files when needed.
  */
 async function revealRelativeMarker(direction: 1 | -1, scope?: MarkerScope): Promise<void> {
+  // Walk the sorted marker list and wrap at the ends so navigation feels continuous.
   const markers = getSortedUniqueMarkers(scope);
   if (markers.length === 0) {
     const label = scope ? `${scope} markers` : "markers";
@@ -240,6 +257,7 @@ async function revealRelativeMarker(direction: 1 | -1, scope?: MarkerScope): Pro
  * Wraps an index into the valid bounds of the marker list.
  */
 function getWrappedIndex(index: number, length: number): number {
+  // Normal modulo that also handles negative offsets.
   return ((index % length) + length) % length;
 }
 
@@ -252,6 +270,7 @@ function getNearestMarkerIndex(
   activeLine: number,
   direction: 1 | -1
 ): number {
+  // If the cursor is not already on a marker, jump to the nearest sensible one.
   if (!activeUri) {
     return direction === 1 ? 0 : markers.length - 1;
   }
@@ -272,4 +291,3 @@ function getNearestMarkerIndex(
 
   return markers.length - 1;
 }
-
